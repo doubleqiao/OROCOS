@@ -1,0 +1,18 @@
+1. Every component loaded by the deployer is automatically a peer of the deployer. Different component can know each other by "add peer".
+Components are connected by connecting their ports.
+2. The package is imported by the deployer and all the orocos component libraries in the package are automatically imported. The name of the 
+library does not matter. The orocos component library is created by the cmake macro "orocos_component", which is described in 
+"${OROCOS-RTT_USE_FILE_PATH}/UseOROCOS-RTT.cmake". If there is problem in loading the library, probably the code, or the compilation 
+of the orocos component library is wrong.
+
+3.450 [ ERROR  ][ComponentLoader::import(path_list)] Could not load library '/home/qiao/Documents/2018_Qiao_Force_from_Shape/catkin_ws/devel/lib/orocos/gnulinux/ekf_force_sensing_fd/libEKF_force_sensing-gnulinux.so':
+3.450 [ ERROR  ][ComponentLoader::import(path_list)] /home/qiao/Documents/2018_Qiao_Force_from_Shape/catkin_ws/devel/lib/libcrobot_lib.so: undefined symbol: _ZN14crobot_element37setInitialCondition_ForwardKinematicsEiN3KDL6WrenchEN6alglib13real_1d_arrayE
+
+These two errors are connected and actually the second error is exactly where the problem is. 
+The problem is not about the KDL library.
+It is becasue the dependency tree is wrong.
+Wrong practice: EKF-> crobot, crobot_element
+Right practice: EKF -> crobot -> crobot_element
+
+3. The error below is because the Property set in the EKF_component is not the same as the Property used int he LUA.
+0.450 [ ERROR  ][ScriptingService] LuaService 'Deployer': deploy_EKF_component.lua:162: /tmp/binarydeb/ros-kinetic-ocl-2.9.0/lua/rtt.cpp failed. No such property
