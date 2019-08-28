@@ -44,4 +44,6 @@ dep:connect("component_name.out_port","component_name.in_port",cp)
 
 Not working currently.
 
+7. To make ~/.bashrc immediately available, you need to "source ~/.bashrc".
+
 
