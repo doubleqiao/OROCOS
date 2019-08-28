@@ -22,3 +22,26 @@ or there are some errors that lead to failure. Read the code then.
 
 5. It would be helpful to output the correspondign message with different part of the code, so you will quickly know where the problem is.
 
+6. Two ways for a orocos component to subscribe and publish to ros topics:
+1) 
+cp_ros = rtt.Variable('ConnPolicy')
+cp_ros.transport = 3   -- transport layer: ROS
+cp_ros.name_id = 'rostopic' -- ROS topic name
+dep:stream("component_name.in_port or out_port",cp_ros)
+
+2)
+dep:stream("component_name.in_port or out_port", ros:topic("rostopic"))
+For method 2, dep:import("rtt_roscomm") needs to be added.
+
+For the above two methods, whether it is subscribing or publishing depends on whether it is in port or out port.
+
+However, transferring data between components in tihs way is slower than directly exchaging data between components.
+
+Problem: 
+cp = rtt.Variable('ConnPolicy')
+cp.type = 0 -- type DATA
+dep:connect("component_name.out_port","component_name.in_port",cp)
+
+Not working currently.
+
+
