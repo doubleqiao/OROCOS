@@ -16,3 +16,9 @@ Right practice: EKF -> crobot -> crobot_element
 
 3. The error below is because the Property set in the EKF_component is not the same as the Property used int he LUA.
 0.450 [ ERROR  ][ScriptingService] LuaService 'Deployer': deploy_EKF_component.lua:162: /tmp/binarydeb/ros-kinetic-ocl-2.9.0/lua/rtt.cpp failed. No such property
+
+4. Sometimes you can not totally believe the instructions on the repository, maybe there are some tips that the author forgets to mention
+or there are some errors that lead to failure. Read the code then.
+
+5. It would be helpful to output the correspondign message with different part of the code, so you will quickly know where the problem is.
+
